@@ -1,5 +1,40 @@
 {
-   "dependencies": {
-      "eslint-plugin-mongodb-server": "file:buildscripts/eslint-plugin-mongodb-server"
-   }
+  "name": "eslint-plugin-mongodb-server",
+  "version": "0.0.0",
+  "description": "Custom ESlint rules for MongoDB's JavaScript integration tests.",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin"
+  ],
+  "main": "lib/index.js",
+  "bin": {
+    "resmoke-tags": "bin/resmoke-tags.js"
+  },
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha --recursive tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mongodb/mongo.git"
+  },
+  "dependencies": {
+    "commander": "2.16.0",
+    "diff": "3.5.0",
+    "eslint": "5.1.0",
+    "requireindex": "1.1.0",
+    "wordwrap": "1.0.0",
+    "yaml": "1.0.0-rc.7"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  },
+  "peerDependencies": {
+    "eslint": ">=0.8.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "license": "Apache-2.0",
+  "private": true
 }
