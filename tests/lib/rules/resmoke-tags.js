@@ -369,6 +369,80 @@ function addingNewTagWithoutExistingTagsAnnotationOrComment() {
         },
 
         {
+            code:  //
+                (function addingNewTagWithoutExistingTagsAnnotationButHasMultiLineComment() {
+                    var a = 1;
+                    // This is a multi-line comment
+                    // that likely describes
+                    // what the test is meant to do.
+                    var b = 2;
+                }).toString(),
+            options: [{ $_internalAddTag: { tag: "tag2", comment: "This is a comment for tag2." } }],
+
+            errors: 1,
+            output:  //
+                (function addingNewTagWithoutExistingTagsAnnotationButHasMultiLineComment() {
+                    var a = 1;
+                    // This is a multi-line comment
+                    // that likely describes
+                    // what the test is meant to do.
+                    // @tags: [
+                    //   # This is a comment for tag2.
+                    //   tag2,
+                    // ]
+                    var b = 2;
+                }).toString()
+        },
+
+        {
+          code:  //
+              `
+function addingNewTagWithoutExistingTagsAnnotationButHasUnrelatedLineComment() {
+    var a = 1;
+    var b = 2;  // This isn't a comment that describes what the test is meant to do.
+}`,
+          options: [{$_internalAddTag: {tag: "tag2", comment: "This is a comment for tag2."}}],
+
+          errors: 1,
+          output:  //
+              `
+/**
+ * @tags: [
+ *   # This is a comment for tag2.
+ *   tag2,
+ * ]
+ */
+function addingNewTagWithoutExistingTagsAnnotationButHasUnrelatedLineComment() {
+    var a = 1;
+    var b = 2;  // This isn't a comment that describes what the test is meant to do.
+}`
+        },
+
+        {
+          code:  //
+              `
+function addingNewTagWithoutExistingTagsAnnotationButHasUnrelatedBlockComment() {
+    var a = 1;
+    var b = 2;  /* This isn't a comment that describes what the test is meant to do. */
+}`,
+          options: [{$_internalAddTag: {tag: "tag2", comment: "This is a comment for tag2."}}],
+
+          errors: 1,
+          output:  //
+              `
+/**
+ * @tags: [
+ *   # This is a comment for tag2.
+ *   tag2,
+ * ]
+ */
+function addingNewTagWithoutExistingTagsAnnotationButHasUnrelatedBlockComment() {
+    var a = 1;
+    var b = 2;  /* This isn't a comment that describes what the test is meant to do. */
+}`
+        },
+
+        {
           code:  //
               (function updatingCommentOfExistingTag() {
                   /**
