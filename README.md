@@ -4,48 +4,27 @@ Custom ESlint rules for MongoDB's JavaScript integration tests.
 
 ## Installation
 
-You'll first need to install [ESLint](http://eslint.org):
-
 ```
-$ npm i eslint --save-dev
+$ npm install -g eslint-plugin-mongodb-server
 ```
-
-Next, install `eslint-plugin-mongodb-server`:
-
-```
-$ npm install eslint-plugin-mongodb-server --save-dev
-```
-
-**Note:** If you installed ESLint globally (using the `-g` flag) then you must also install `eslint-plugin-mongodb-server` globally.
 
 ## Usage
 
-Add `mongodb-server` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
-
-```json
-{
-    "plugins": [
-        "mongodb-server"
-    ]
-}
 ```
+$ resmoke-tags --help
 
+  Usage: resmoke-tags [options] [command]
 
-Then configure the rules you want to use under the rules section.
+  Options:
 
-```json
-{
-    "rules": {
-        "mongodb-server/rule-name": 2
-    }
-}
+    -h, --help                                 output usage information
+
+  Commands:
+
+    format [files...]                          Automatically formats the resmoke.py tags in list of files
+    add-tag [options] <tag> [files...]         Adds the resmoke.py tag to the list of files
+    remove-tag <tag> [files...]                Removes the resmoke.py tag from the list of files
+    rename-tag <from-tag> <to-tag> [files...]  Renames the resmoke.py tag in the list of files
+    list-tags [files...]                       Lists the resmoke.py tags used in the list of files
+    find-tag <tag> [files...]                  Lists the files which use the resmoke.py tag
 ```
-
-## Supported Rules
-
-* Fill in provided rules here
-
-
-
-
-

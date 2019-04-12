@@ -1,11 +1,13 @@
 {
   "name": "eslint-plugin-mongodb-server",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Custom ESlint rules for MongoDB's JavaScript integration tests.",
   "keywords": [
     "eslint",
     "eslintplugin",
-    "eslint-plugin"
+    "eslint-plugin",
+    "mongodb",
+    "resmoke"
   ],
   "main": "lib/index.js",
   "bin": {
@@ -16,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:mongodb/mongo.git"
+    "url": "git@github.com:visemet/eslint-plugin-mongodb-server.git"
   },
   "dependencies": {
     "commander": "2.16.0",
@@ -35,6 +37,5 @@
   "engines": {
     "node": ">=0.10.0"
   },
-  "license": "Apache-2.0",
-  "private": true
+  "license": "Apache-2.0"
 }
