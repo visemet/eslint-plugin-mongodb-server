@@ -4,26 +4,35 @@ const path = require("path");
 const util = require("util");
 
 const program = require("commander");
-const CLIEngine = require('eslint').CLIEngine;
+const { ESLint } = require('eslint');
 
 function localeCompare(str1, str2) {
     return str1.localeCompare(str2);
 }
 
-function lint(files, ruleOptions) {
-    const cli = new CLIEngine({
+async function lint(files, ruleOptions) {
+    const eslint = new ESLint({
         // We don't use the top-level .eslintrc.yml file but we still enable ES6 features and
         // MongoDB global variables ourselves.
         useEslintrc: false,
-        envs: ["es6", "mongo"],
-
-        plugins: ["mongodb-server"],
-        rules: {"mongodb-server/resmoke-tags": ruleOptions},
+        overrideConfig: {
+            env: {
+                "es6": true,
+                "mongo": true,
+            },
+            plugins: ["mongodb-server"],
+            rules: {"mongodb-server/resmoke-tags": ruleOptions},
+            parserOptions: {
+                "sourceType": "module",
+                "ecmaVersion": 2022,
+            }
+        },
         fix: true,
     });
 
-    const report = cli.executeOnFiles(files);
-    if (report.errorCount > 0) {
+    const report = await eslint.lintFiles(files);
+    const errorCount = report.reduce((acc, file) => acc + file.errorCount, 0);
+    if (errorCount > 0) {
         // We don't attempt to make changes to the specified files if there are non-fixable errors.
         console.error(util.inspect(report, {
             showHidden: false,
@@ -34,7 +43,7 @@ function lint(files, ruleOptions) {
         process.exit(2);
     }
 
-    CLIEngine.outputFixes(report);
+    await ESLint.outputFixes(report);
     return report;
 }
 
